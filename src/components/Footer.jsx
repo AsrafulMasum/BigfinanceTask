@@ -22,7 +22,7 @@ const Footer = () => {
 
   return (
     <div>
-      <div className="bg-white">
+      <div>
       <footer className="footer footer-center pt-10 text-base-content bg-gray-700">
         <div className="w-full flex justify-between max-w-screen-lg px-4 xl:px-0 xl:mx-auto border-b border-[#FFFFFF19] pb-10">
 
@@ -78,7 +78,7 @@ const Footer = () => {
         <aside className="bg-gray-500 w-full h-20">
           <p className="text-white">
             Copyright © 2023 - All right reserved by{" "}
-            <span className="text-active-color font-semibold text-[#D1A054B3]">ProductsBD</span> Ltd
+            <span className="text-active-color font-semibold text-green-300">E-Sports Mania</span> Ltd
           </p>
         </aside>
       </footer>

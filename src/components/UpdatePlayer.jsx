@@ -11,7 +11,7 @@ const UpdatePlayer = () => {
   const axiosSecure = useAxiosSecure();
   const playerURL = `/players/${id}`;
   const { data: player } = useLoadSecureData(playerURL);
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors }, } = useForm();
 
   useEffect(() => {
     setValue("name", player?.name);
@@ -54,7 +54,7 @@ const UpdatePlayer = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
         <div className="relative z-0 w-full mb-5 group">
           <input
-            {...register("name", { required: true })}
+            {...register("name", { required: true, maxLength: 15 })}
             type="text"
             id="name"
             defaultValue={player?.name}
@@ -62,6 +62,11 @@ const UpdatePlayer = () => {
             placeholder=" "
             required
           />
+          {errors.name && errors.name.type === "maxLength" && (
+            <p className="text-red-500">
+              Name must be less than 15 characters.
+            </p>
+          )}
           <label
             htmlFor="name"
             className="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -72,6 +77,7 @@ const UpdatePlayer = () => {
 
         <div className="relative z-0 w-full mb-5 group">
           <input
+          disabled
             {...register("country", { required: true })}
             type="text"
             id="country"
@@ -90,7 +96,7 @@ const UpdatePlayer = () => {
         <div className="relative z-0 w-full mb-5 group">
           <input
             {...register("score", { required: true })}
-            type="text"
+            type="number"
             id="score"
             className="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
             placeholder=" "

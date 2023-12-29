@@ -1,8 +1,27 @@
 import Footer from "../components/Footer";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, EffectCreative } from "swiper/modules";
+import useLoadPublicData from "../Hooks/useLoadPublicData";
+import { useEffect } from "react";
 
 const Home = () => {
+  const { data: players, refetch } = useLoadPublicData("/players");
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [refetch]);
+
   return (
-    <div>
+    <div className="bg-gray-800">
       <div
         className="hero min-h-screen"
         style={{
@@ -23,6 +42,39 @@ const Home = () => {
           </div> */}
         </div>
       </div>
+      <Swiper
+        spaceBetween={30}
+        // slidesPerView={5}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        grabCursor={true}
+        effect={'creative'}
+        creativeEffect={{
+          prev: {
+            shadow: true,
+            translate: [0, 0, -400],
+          },
+          next: {
+            translate: ['100%', 0, 0],
+          },
+        }}
+        modules={[Autoplay, EffectCreative]}
+      >
+        {players?.map((player) => (
+          <SwiperSlide key={player?._id}>
+            <div className="card shadow-xl bg-green-700 rounded-none text-white text-center">
+              <div className="card-body">
+                <h2 className="text-5xl">{player?.name}</h2>
+                <p className="text-xl">Country : {player?.country}</p>
+                <p className="text-xl">Score : {player?.score}</p>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <Footer></Footer>
     </div>
   );
