@@ -4,61 +4,67 @@ import useLoadPublicData from "../Hooks/useLoadPublicData";
 import LayoutContainer from "../Layout/LayoutComponent/LayoutContainer";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
+import useAuth from "../Hooks/useAuth";
 
 const Players = () => {
-
-  const [showData, setShowData] = useState([])
+  const { user } = useAuth();
+  const navigate = useNavigate()
+  const [showData, setShowData] = useState([]);
 
   const playersURL = "/players";
   const { data: players, refetch } = useLoadPublicData(playersURL);
   const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
 
-  useEffect(()=>{
-    setShowData(players)
-  }, [players])
+  useEffect(() => {
+    setShowData(players);
+  }, [players]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target
-    const rank = form.searchText.value
-    const res = await axiosPublic(`/players/rank/${rank}`)
-    const player = [res?.data]
-    setShowData(player)
-    form.reset()
+    const form = e.target;
+    const rank = form.searchText.value;
+    const res = await axiosPublic(`/players/rank/${rank}`);
+    const player = [res?.data];
+    setShowData(player);
+    form.reset();
   };
 
   const handleRandom = async () => {
-    const res = await axiosPublic("/players/random")
-    const player = [res?.data]
-    setShowData(player)
-  }
+    const res = await axiosPublic("/players/random");
+    const player = [res?.data];
+    setShowData(player);
+  };
 
   const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const res = await axiosSecure.delete(`/players/${id}`);
-        if (res?.data?.deletedCount) {
-          refetch();
-          Swal.fire({
-            title: "Deleted!",
-            text: "Player has been deleted.",
-            icon: "success",
-          });
+    if (user) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await axiosSecure.delete(`/players/${id}`);
+          if (res?.data?.deletedCount) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Player has been deleted.",
+              icon: "success",
+            });
+          }
         }
-      }
-    });
+      });
+    }else{
+      navigate("/logIn", { state: { from: location } })
+    }
   };
 
   return (
@@ -90,7 +96,12 @@ const Players = () => {
               value="Search"
             />
           </form>
-          <button onClick={handleRandom} className="btn btn-wide bg-[#1D84B5] text-white">Random</button>
+          <button
+            onClick={handleRandom}
+            className="btn btn-wide bg-[#1D84B5] text-white"
+          >
+            Random
+          </button>
         </div>
         <div className="overflow-x-auto">
           <table className="table">

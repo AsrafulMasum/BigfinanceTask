@@ -4,7 +4,7 @@
 
 Click here for the live website link: [https://bigfinancetask.web.app](https://bigfinancetask.web.app)
 
-Click here for the video preview link: [https://drive.google.com/file/d/1VXlSi-DjDBIzftLbJ2DBUpHMSRnf3GWS/view?usp=sharing](https://drive.google.com/file/d/1VXlSi-DjDBIzftLbJ2DBUpHMSRnf3GWS/view?usp=sharing)
+Click here for the video preview link: [https://drive.google.com/file/d/1acnMQoO0Avx9M77mazM3q6wjG53QOi7v/view?usp=sharing](https://drive.google.com/file/d/1acnMQoO0Avx9M77mazM3q6wjG53QOi7v/view?usp=sharing)
 
 Click here for the server side code link: [https://github.com/AsrafulMasum/BigfinanceServer](https://github.com/AsrafulMasum/BigfinanceServer)
 
