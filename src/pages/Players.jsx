@@ -4,6 +4,7 @@ import useLoadPublicData from "../Hooks/useLoadPublicData";
 import LayoutContainer from "../Layout/LayoutComponent/LayoutContainer";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Players = () => {
   const playersURL = "/players";
@@ -67,9 +68,9 @@ const Players = () => {
                   <td>{player?.country}</td>
                   <td>{player?.score}</td>
                   <th>
-                    <button className="btn btn-ghost btn-xs">
+                    <Link to={`/updatePlayer/${player?._id}`} className="btn btn-ghost btn-xs">
                       <FaEdit className="text-lg"></FaEdit>
-                    </button>
+                    </Link>
                   </th>
                   <th>
                     <button

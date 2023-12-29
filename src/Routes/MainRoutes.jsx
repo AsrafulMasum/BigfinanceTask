@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
 import Players from "../pages/Players";
 import AddPlayer from "../pages/AddPlayer";
+import UpdatePlayer from "../components/UpdatePlayer";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const MainRoutes = createBrowserRouter([
       {
         path: "addPlayer",
         element: <AddPlayer></AddPlayer>
+      },
+      {
+        path: "updatePlayer/:id",
+        element: <UpdatePlayer></UpdatePlayer>
       },
       {
         path: "logIn",
