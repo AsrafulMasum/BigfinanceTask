@@ -11,6 +11,9 @@ const Drawer = () => {
       <li>
         <NavLink to="/players">Players</NavLink>
       </li>
+      <li>
+        <NavLink to="/addPlayer">Add Player</NavLink>
+      </li>
     </>
     </>
   );
